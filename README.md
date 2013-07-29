@@ -1,6 +1,9 @@
-Mic Input responsive visualizer for Metatron's Grove Theme Camp at Burning Man '13
+#Metatron's Grove#
+A collection of processing sketches for Metatron's Grove theme camp at Burning Man '13
 
-Indices for each vertex of this cube:
+##Contents:##
+[ ] Mic Input responsive visualizer for Metatron's Grove Theme Camp at Burning Man '13
+ Indices for each vertex of this cube:
 
 ```
 		12
@@ -11,3 +14,4 @@ Indices for each vertex of this cube:
 8		5		4
 		6
 ```
+
