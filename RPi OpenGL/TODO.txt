@@ -1,0 +1,2 @@
+make the min & max of audio dynamically smooth out over time
+make the audioin constructor take a buffer size and time

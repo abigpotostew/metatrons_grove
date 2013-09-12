@@ -1,0 +1,11 @@
+capture_rate 25
+shape_file data/metatronscube.txt
+shape_file data/seedoflife.txt
+shape_file data/latcircles.txt
+shape_file data/whirlylines.txt
+shape_file data/web.txt
+shape_file data/tree-swirl.txt
+shape_file data/treeoflife.txt
+shape_file data/circles.txt
+
+circular_mover 3.141592654 5000 2

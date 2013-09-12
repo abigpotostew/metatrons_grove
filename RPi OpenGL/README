@@ -1,0 +1,112 @@
++--------------------------------------------+
+| 3D Parametric Plotter for the Raspberry Pi |
++--------------------------------------------+
+
+WARNING: ------------------------------------------------------------------+
+| Use this program at your own risk!                                       |
+| No seriously bad things have happened on clean installations without     |
+| overclocking, but some users with specific set-ups did have some issues. |
+| If you have any important data on your Raspberry Pi, it's a good idea to |
+| back that up before running this program.                                |
++--------------------------------------------------------------------------+
+
+0. Overview
+1. Compilation
+2. Usage
+3. Bugs
+
+
+0. Overview
+===========
+
+Surfaces in three-dimensional space can be described by a function which maps
+values from a two-dimensional plane (u,v-coordinates) into 3D space (x,y,z).
+
+Playing around with these functions can be fun and you can get some very pretty
+surfaces with relatively concise formulas.
+
+I wrote this program as a tool to play around with these, but also as an
+exercise in OpenGL ES and parsing of mathematical expressions.
+
+Also, I find it extraordinarily awesome that the Raspberry Pi can do this.
+
+See a video demonstration here:
+http://www.youtube.com/watch?v=m-GseLka2NM
+
+
+1. Compilation
+==============
+
+The program depends on GL, GLM and SDL, so make sure you have those installed
+on your system before proceeding.  On Raspbian, this command should do it:
+    $ sudo apt-get install libglm-dev libsdl1.2-dev
+
+If you have everything, executing the following should compile the program:
+    $ make
+
+
+2. Usage
+========
+
+The output of
+    $ ./rpi-simple-paramplot -h
+shows the following:
+
+Usage: ./rpi-simple-paramplot [options]
+Options:
+ -e <vardef>
+   Define an auxiliary variable which can be used in following occurrences
+   of -e, -x, -y and -z.  The definition may use u and v.  The option argument
+   must be of the form "<varchar>=<definition>" with the '=' sign exactly at
+   the second position (no whitespace before it!)
+ -x <xdef>, -y <ydef>, -z <zdef>
+   Specify the parametric function to plot.  u, v and user-defined variables
+   may be used.
+ -r <rdef>, -g <gdef>, -b <bdef>
+   Specify the color of the surface.  u, v and user-defined variables
+   may be used.
+ -u <u_res>, -v <v_res>
+   Set the number of sampling points along the u and v coordinates.
+   The default is 64, 64.
+Examples:
+ Sphere:
+   ./rpi-simple-paramplot -e "U=2*pi*u" -e "V=pi*v" \
+     -x "cos(U) * sin(V)" -z "sin(U) * sin(V)" -y "cos(V)";
+ Colorful rotaty-whirly thing:
+   ./rpi-simple-paramplot -u512 -v32 \
+     -e U=2*pi*u -e V=2*pi*v -e "R=1" -e "r=.25" \
+     -x "cos(5*U) * (R + r*sin(V) + 2*r*cos(U))" \
+     -y "sin(5*U) * (R + r*sin(V) + 2*r*cos(U))" \
+     -z ".2*r*cos(V) + 5*r*sin(U)" \
+     -r ".5 + .5*sin(U)" -g ".5 + .5*sin(2*U)" -b ".5 + .5*sin(5*U)"
+
+When the program is running, you can use the following keys and buttons:
+    Left Mouse Button, Arrow Keys:            Rotate view.
+    Right Mouse Button:                       Roll view.
+    Middle Mouse Button, Wheel, Page Up/Down: Move view forward/backward.
+    Escape: Quit program.
+    F1:     Print keybindings.
+    F2:     Toggle vertical synchronization.
+    F3:     Toggle backface culling (can be used to enhance performance,
+            but only with correctly oriented closed surfaces).
+    F4:     Toggle wireframe rendering.
+
+
+3. Bugs
+=======
+
+Enabling overscan settings in the RPi config may cause a black screen until
+the next reboot with overscan disabled.  Testing and reproduction needed.
+Apparently SDL_SetVideoMode segfaults.  Doesn't seem to happen in X11.
+
+Combinations of overclocking and null divisions have in one case lead to
+instant reboots and some filesystem corruption, although this might have
+been caused by an already corrupt system.
+
+Compiling with -O3 optimization causes some very very weird floating point
+operation results which leads to the camera spazzing out.  You can compile
+everything except graphics.cpp with -O3 for a great performance boost though.
+
+
+Have fun math-ing on your Raspberry Pi!
+  - Benedek Vartok  <vartokb@ethz.ch>
