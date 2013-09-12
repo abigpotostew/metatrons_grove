@@ -1,5 +1,5 @@
 #Metatron's Grove#
-A collection of processing sketches for Metatron's Grove theme camp at Burning Man '13
+My project for Burning Man '13. A music music visualizer created from scratch for the Raspberry Pi using OpenGL, OpenAL, C++, custom shaders, a USB soundcard, and a microphone.
 
 ##### If you'd like to contribute, add additional sketch folders in the root directory. IE if you're adding a sketch called groovy-nasty, then put the groovy-nasty folder next to this readme with groovy-nasty.pde inside
 
